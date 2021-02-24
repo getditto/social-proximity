@@ -1,0 +1,24 @@
+PODS:
+  - DittoSyncKit (1.0.0-alpha7)
+  - DittoSyncKitSwift (1.0.0-alpha7):
+    - DittoSyncKit (= 1.0.0-alpha7)
+  - Eureka (5.3.2)
+
+DEPENDENCIES:
+  - DittoSyncKitSwift (~> 1.0.0-alpha7)
+  - Eureka
+
+SPEC REPOS:
+  trunk:
+    - DittoSyncKit
+    - DittoSyncKitSwift
+    - Eureka
+
+SPEC CHECKSUMS:
+  DittoSyncKit: 67bb59d125861a95fdb77810be5c8b569b4f1a9b
+  DittoSyncKitSwift: 8551fe0145dc87aedf01d17a1cd2c1c2c5681177
+  Eureka: 1c2b8b5892bfb0e972d0fe05f8c09fd89f8625ec
+
+PODFILE CHECKSUM: 8f5bd7b255d8e029ab6fbdcde9863c30082c60cf
+
+COCOAPODS: 1.10.1

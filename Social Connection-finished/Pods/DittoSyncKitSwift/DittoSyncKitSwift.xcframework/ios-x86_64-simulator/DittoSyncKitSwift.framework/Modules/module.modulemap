@@ -1,0 +1,11 @@
+framework module DittoSyncKitSwift {
+  umbrella header "DittoSyncKitSwift.h"
+
+  export *
+  module * { export * }
+}
+
+module DittoSyncKitSwift.Swift {
+    header "DittoSyncKitSwift-Swift.h"
+    requires objc
+}

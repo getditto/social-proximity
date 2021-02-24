@@ -1,0 +1,48 @@
+framework module DittoSyncKit {
+    umbrella header "DittoSyncKit.h"
+
+    export *
+    module * { export * }
+
+    explicit module Private {
+        header "DocumentHandleWrapper.h"
+        header "DITAttachment+Private.h"
+        header "DITAttachmentToken+Private.h"
+        header "DITCollection+Private.h"
+        header "DITDocument+Private.h"
+        header "DITDocumentPath+Private.h"
+        header "DITLogger+Private.h"
+        header "DITMutableDocument+Private.h"
+        header "DITMutableDocumentPath+Private.h"
+        header "DITPendingCursorOperation+Private.h"
+        header "DITPendingIDSpecificOperation+Private.h"
+        header "DITScopedWriteTransaction+Private.h"
+        header "DITUpdateResult+Private.h"
+        header "DITWriteTransactionPendingIDSpecificOperation+Private.h"
+        header "TransportConditionHelpers.h"
+    }
+
+    explicit module DittoFFI {
+        private header "dittoffi.h"
+        link "dittoffi"
+        export *
+    }
+
+    explicit module DittoTransports {
+        private header "DittoTransportsObjC.h"
+        private header "MdnsPlatform.h"
+        private header "AwdlClientPlatform.h"
+        private header "AwdlServerPlatform.h"
+        private header "BluetoothPlatform.h"
+        private header "TransportHandleWrapper.h"
+        link "DittoTransportsObjC"
+        export *
+    }
+
+    explicit module ObjCUtil {
+        private header "Log.h"
+        link "ObjCUtil"
+        export *
+    }
+
+}

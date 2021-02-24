@@ -1,0 +1,661 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name DittoSyncKitSwift
+import DittoSyncKit.DittoFFI
+import DittoSyncKit
+@_exported import DittoSyncKitSwift
+import Foundation
+import DittoSyncKit.Private
+import Swift
+@_hasMissingDesignatedInitializers public class DittoAttachmentFetcher {
+  public func stop()
+  @objc deinit
+}
+public enum DittoUpdateResult {
+  case set(docID: Swift.String, path: Swift.String, value: Any?)
+  case removed(docID: Swift.String, path: Swift.String)
+  case replacedWithCounter(docID: Swift.String, path: Swift.String)
+  case incremented(docID: Swift.String, path: Swift.String, amount: Swift.Double)
+  case pushed(docID: Swift.String, path: Swift.String, value: Any?)
+  case popped(docID: Swift.String, path: Swift.String, value: Any?)
+  case inserted(docID: Swift.String, path: Swift.String, value: Any?)
+}
+public enum DittoAttachmentFetchEvent {
+  case completed(DittoSyncKitSwift.DittoAttachment)
+  case progress(downloadedBytes: Swift.UInt64, totalBytes: Swift.UInt64)
+  case deleted
+}
+@_hasMissingDesignatedInitializers public class DittoTransportSnapshot {
+  final public let connectionType: Swift.String
+  final public let connecting: [Swift.Int64]
+  final public let connected: [Swift.Int64]
+  final public let disconnecting: [Swift.Int64]
+  final public let disconnected: [Swift.Int64]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoDocument {
+  final public let id: Swift.String
+  public var value: [Swift.String : Any?] {
+    get
+    set
+  }
+  public func typed<T>(as type: T.Type) throws -> DittoSyncKitSwift.DittoTypedDocument<T> where T : Swift.Decodable, T : Swift.Encodable
+  public subscript(key: Swift.String) -> DittoSyncKitSwift.DittoDocumentPath {
+    get
+  }
+  @objc deinit
+}
+extension DittoDocument : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension DittoDocument : Swift.Identifiable {
+  public typealias ID = Swift.String
+}
+@_hasMissingDesignatedInitializers public class DittoCollection {
+  public var name: Swift.String {
+    get
+  }
+  @discardableResult
+  public func insert<T>(_ content: T, id: Swift.String? = nil, isDefault: Swift.Bool = false) throws -> Swift.String where T : Swift.Decodable, T : Swift.Encodable
+  @discardableResult
+  public func insert(_ content: [Swift.String : Any?], id: Swift.String? = nil, isDefault: Swift.Bool = false) throws -> Swift.String
+  public func findByID(_ id: Swift.String) -> DittoSyncKitSwift.DittoPendingIDSpecificOperation
+  public func find(_ query: Swift.String) -> DittoSyncKitSwift.DittoPendingCursorOperation
+  public func findAll() -> DittoSyncKitSwift.DittoPendingCursorOperation
+  public func newAttachment(path: Swift.String, metadata: [Swift.String : Swift.String] = [:]) -> DittoSyncKitSwift.DittoAttachment?
+  public func fetchAttachment(token: DittoSyncKitSwift.DittoAttachmentToken, onFetchEvent: @escaping (DittoSyncKitSwift.DittoAttachmentFetchEvent) -> Swift.Void) -> DittoSyncKitSwift.DittoAttachmentFetcher?
+  @objc deinit
+}
+public enum DittoWriteTransactionResult {
+  case inserted(id: Swift.String, collection: Swift.String)
+  case updated(id: Swift.String, collection: Swift.String)
+  case evicted(id: Swift.String, collection: Swift.String)
+  case removed(id: Swift.String, collection: Swift.String)
+}
+extension CBOR {
+}
+indirect public enum CBOR : Swift.Equatable, Swift.Hashable, Swift.ExpressibleByNilLiteral, Swift.ExpressibleByIntegerLiteral, Swift.ExpressibleByStringLiteral, Swift.ExpressibleByArrayLiteral, Swift.ExpressibleByDictionaryLiteral, Swift.ExpressibleByBooleanLiteral, Swift.ExpressibleByFloatLiteral {
+  case unsignedInt(Swift.UInt64)
+  case negativeInt(Swift.UInt64)
+  case byteString([Swift.UInt8])
+  case utf8String(Swift.String)
+  case array([DittoSyncKitSwift.CBOR])
+  case map([DittoSyncKitSwift.CBOR : DittoSyncKitSwift.CBOR])
+  case tagged(DittoSyncKitSwift.CBOR.Tag, DittoSyncKitSwift.CBOR)
+  case simple(Swift.UInt8)
+  case boolean(Swift.Bool)
+  case null
+  case undefined
+  case half(Swift.Float32)
+  case float(Swift.Float32)
+  case double(Swift.Float64)
+  case `break`
+  case date(Foundation.Date)
+  public func hash(into hasher: inout Swift.Hasher)
+  public subscript(position: DittoSyncKitSwift.CBOR) -> DittoSyncKitSwift.CBOR? {
+    get
+    set(x)
+  }
+  public init(nilLiteral: ())
+  public init(integerLiteral value: Swift.Int)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public init(unicodeScalarLiteral value: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(arrayLiteral elements: DittoSyncKitSwift.CBOR...)
+  public init(dictionaryLiteral elements: (DittoSyncKitSwift.CBOR, DittoSyncKitSwift.CBOR)...)
+  public init(booleanLiteral value: Swift.Bool)
+  public init(floatLiteral value: Swift.Float32)
+  public static func == (lhs: DittoSyncKitSwift.CBOR, rhs: DittoSyncKitSwift.CBOR) -> Swift.Bool
+  public struct Tag : Swift.RawRepresentable, Swift.Equatable, Swift.Hashable {
+    public let rawValue: Swift.UInt64
+    public init(rawValue: Swift.UInt64)
+    public var hashValue: Swift.Int {
+      get
+    }
+    public typealias RawValue = Swift.UInt64
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public typealias IntegerLiteralType = Swift.Int
+  public typealias StringLiteralType = Swift.String
+  public typealias ArrayLiteralElement = DittoSyncKitSwift.CBOR
+  public typealias Key = DittoSyncKitSwift.CBOR
+  public typealias Value = DittoSyncKitSwift.CBOR
+  public typealias BooleanLiteralType = Swift.Bool
+  public typealias FloatLiteralType = Swift.Float32
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+extension CBOR.Tag {
+  public static let standardDateTimeString: DittoSyncKitSwift.CBOR.Tag
+  public static let epochBasedDateTime: DittoSyncKitSwift.CBOR.Tag
+  public static let positiveBignum: DittoSyncKitSwift.CBOR.Tag
+  public static let negativeBignum: DittoSyncKitSwift.CBOR.Tag
+  public static let decimalFraction: DittoSyncKitSwift.CBOR.Tag
+  public static let bigfloat: DittoSyncKitSwift.CBOR.Tag
+  public static let expectedConversionToBase64URLEncoding: DittoSyncKitSwift.CBOR.Tag
+  public static let expectedConversionToBase64Encoding: DittoSyncKitSwift.CBOR.Tag
+  public static let expectedConversionToBase16Encoding: DittoSyncKitSwift.CBOR.Tag
+  public static let encodedCBORDataItem: DittoSyncKitSwift.CBOR.Tag
+  public static let uri: DittoSyncKitSwift.CBOR.Tag
+  public static let base64Url: DittoSyncKitSwift.CBOR.Tag
+  public static let base64: DittoSyncKitSwift.CBOR.Tag
+  public static let regularExpression: DittoSyncKitSwift.CBOR.Tag
+  public static let mimeMessage: DittoSyncKitSwift.CBOR.Tag
+  public static let uuid: DittoSyncKitSwift.CBOR.Tag
+  public static let selfDescribeCBOR: DittoSyncKitSwift.CBOR.Tag
+}
+public enum LMDBError : Swift.Equatable {
+  case keyExists
+  case notFound
+  case pageNotFound
+  case corrupted
+  case panic
+  case versionMismatch
+  case invalid
+  case mapFull
+  case dbsFull
+  case readersFull
+  case tlsFull
+  case txnFull
+  case cursorFull
+  case pageFull
+  case mapResized
+  case incompatible
+  case badReaderSlot
+  case badTransaction
+  case badValueSize
+  case badDBI
+  case problem
+  case invalidParameter
+  case outOfDiskSpace
+  case outOfMemory
+  case ioError
+  case accessViolation
+  case other(returnCode: Swift.Int32)
+  public static func == (a: DittoSyncKitSwift.LMDBError, b: DittoSyncKitSwift.LMDBError) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class DittoLiveQuery {
+  public var query: Swift.String {
+    get
+  }
+  public var collectionName: Swift.String {
+    get
+  }
+  public func stop()
+  @objc deinit
+}
+public typealias DittoSignalNext = () -> Swift.Void
+@_hasMissingDesignatedInitializers public class DittoWriteTransactionPendingIDSpecificOperation {
+  @discardableResult
+  public func remove() -> Swift.Bool
+  @discardableResult
+  public func evict() -> Swift.Bool
+  @discardableResult
+  public func update(_ closure: @escaping (DittoSyncKitSwift.DittoMutableDocument?) -> Swift.Void) -> [DittoSyncKitSwift.DittoUpdateResult]
+  public func update<T>(using newValue: T) throws where T : Swift.Decodable, T : Swift.Encodable
+  @objc deinit
+}
+public enum DittoLogLevel : Swift.Int {
+  case error
+  case warning
+  case info
+  case debug
+  case verbose
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum DittoTransportCondition : Swift.UInt32, Swift.CustomStringConvertible {
+  case Unknown
+  case Ok
+  case GenericFailure
+  case AppInBackground
+  case MdnsFailure
+  case TcpListenFailure
+  case NoBleCentralPermission
+  case NoBlePeripheralPermission
+  case CannotEstablishConnection
+  case BleDisabled
+  case NoBleHardware
+  case WifiDisabled
+  case TemporarilyUnavailable
+  public var description: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt32
+  public init?(rawValue: Swift.UInt32)
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum DittoConditionSource : Swift.UInt32, Swift.CustomStringConvertible {
+  case Bluetooth
+  case Tcp
+  case Awdl
+  case Mdns
+  public var description: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt32
+  public init?(rawValue: Swift.UInt32)
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public struct DittoDocumentPath {
+  public subscript(key: Swift.String) -> DittoSyncKitSwift.DittoDocumentPath {
+    get
+  }
+  public subscript(index: Swift.Int) -> DittoSyncKitSwift.DittoDocumentPath {
+    get
+  }
+  public var string: Swift.String? {
+    get
+  }
+  public var stringValue: Swift.String {
+    get
+  }
+  public var bool: Swift.Bool? {
+    get
+  }
+  public var boolValue: Swift.Bool {
+    get
+  }
+  public var int: Swift.Int? {
+    get
+  }
+  public var intValue: Swift.Int {
+    get
+  }
+  public var float: Swift.Float? {
+    get
+  }
+  public var floatValue: Swift.Float {
+    get
+  }
+  public var double: Swift.Double? {
+    get
+  }
+  public var doubleValue: Swift.Double {
+    get
+  }
+  public var array: [Any?]? {
+    get
+  }
+  public var arrayValue: [Any?] {
+    get
+  }
+  public var dictionary: [Swift.String : Any?]? {
+    get
+  }
+  public var dictionaryValue: [Swift.String : Any?] {
+    get
+  }
+  public var attachmentToken: DittoSyncKitSwift.DittoAttachmentToken? {
+    get
+  }
+}
+public enum DittoLiveQueryEvent {
+  case initial
+  case update(DittoSyncKitSwift.DittoLiveQueryUpdate)
+}
+public struct DittoLiveQueryUpdate {
+  public let oldDocuments: [DittoSyncKitSwift.DittoDocument]
+  public let insertions: [Swift.Int]
+  public let deletions: [Swift.Int]
+  public let updates: [Swift.Int]
+  public let moves: [(from: Swift.Int, to: Swift.Int)]
+}
+extension DittoLiveQueryEvent : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public class DittoSyncKit {
+  public var delegate: DittoSyncKitSwift.DittoSyncKitDelegate? {
+    get
+    set
+  }
+  public static var deviceName: Swift.String {
+    get
+    set
+  }
+  public var siteID: Swift.UInt32 {
+    get
+  }
+  public var store: DittoSyncKitSwift.DittoStore {
+    get
+  }
+  public var delegateEventQueue: Dispatch.DispatchQueue {
+    get
+    set
+  }
+  public init(identity: DittoSyncKitSwift.DittoIdentity = .development(), persistenceDirectory directory: Foundation.URL? = nil)
+  public func setAccessLicense(_ license: Swift.String)
+  public func start(transports: Swift.Set<DittoSyncKitSwift.DittoTransport> = [.wifi, .bluetooth, .awdl])
+  public func stop()
+  public func stop(transports: Swift.Set<DittoSyncKitSwift.DittoTransport>)
+  public func startHttpServer(address: Swift.String, enableWebsocket: Swift.Bool, staticPath: Swift.String? = nil, tlsCertPath: Swift.String? = nil, tlsKeyPath: Swift.String? = nil)
+  public func transportDiagnostics() throws -> DittoSyncKitSwift.DittoTransportDiagnostics
+  public func clearSiteID()
+  public func observePeers(callback: @escaping (Swift.Array<DittoSyncKitSwift.DittoRemotePeer>) -> ()) -> DittoSyncKitSwift.DittoPeersObserver
+  public var sdkVersion: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct DittoSingleDocumentLiveQueryEvent {
+  public let isInitial: Swift.Bool
+  public let oldDocument: DittoSyncKitSwift.DittoDocument?
+}
+public protocol DittoSyncKitDelegate : AnyObject {
+  func transportConditionDidChange(condition: DittoSyncKitSwift.DittoTransportCondition, subsystem: DittoSyncKitSwift.DittoConditionSource)
+}
+public struct DittoRemotePeer : Swift.Codable {
+  public let networkId: Swift.String
+  public let deviceName: Swift.String
+  public let connections: [Swift.String]
+  public let rssi: Swift.Float?
+  public var approximateDistanceInMeters: Swift.Float?
+  public init(networkId: Swift.String, deviceName: Swift.String, connections: [Swift.String], rssi: Swift.Float? = nil, approximateDistanceInMeters: Swift.Float? = nil)
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension DittoRemotePeer : Swift.Identifiable {
+  public var id: Swift.String {
+    get
+  }
+  public typealias ID = Swift.String
+}
+@_hasMissingDesignatedInitializers public class DittoAttachment : Swift.Hashable {
+  public var metadata: [Swift.String : Swift.String] {
+    get
+  }
+  public func encode() -> [Swift.UInt8]
+  public static func == (lhs: DittoSyncKitSwift.DittoAttachment, rhs: DittoSyncKitSwift.DittoAttachment) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func getData() throws -> Foundation.Data
+  public func copy(toPath path: Swift.String) throws
+  @objc deinit
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DittoAttachmentToken : Swift.Equatable {
+  public static func == (lhs: DittoSyncKitSwift.DittoAttachmentToken, rhs: DittoSyncKitSwift.DittoAttachmentToken) -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoTransportDiagnostics {
+  final public let transports: [DittoSyncKitSwift.DittoTransportSnapshot]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoPendingIDSpecificOperation {
+  public func subscribe() -> DittoSyncKitSwift.DittoSubscription
+  @discardableResult
+  public func remove() -> Swift.Bool
+  @discardableResult
+  public func evict() -> Swift.Bool
+  public func exec() -> DittoSyncKitSwift.DittoDocument?
+  public func observe(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping (DittoSyncKitSwift.DittoDocument?, DittoSyncKitSwift.DittoSingleDocumentLiveQueryEvent) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeWithNextSignal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping (DittoSyncKitSwift.DittoDocument?, DittoSyncKitSwift.DittoSingleDocumentLiveQueryEvent, () -> Swift.Void) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeLocal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping (DittoSyncKitSwift.DittoDocument?, DittoSyncKitSwift.DittoSingleDocumentLiveQueryEvent) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeLocalWithNextSignal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping (DittoSyncKitSwift.DittoDocument?, DittoSyncKitSwift.DittoSingleDocumentLiveQueryEvent, () -> Swift.Void) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  @discardableResult
+  public func update(_ closure: @escaping (DittoSyncKitSwift.DittoMutableDocument?) -> Swift.Void) -> [DittoSyncKitSwift.DittoUpdateResult]
+  public func update<T>(using newValue: T) throws where T : Swift.Decodable, T : Swift.Encodable
+  @objc deinit
+}
+public protocol DittoPeersObserver : AnyObject {
+  func stop()
+}
+@_hasMissingDesignatedInitializers public class DittoWriteTransactionPendingCursorOperation {
+  public func limit(_ limit: Swift.Int32) -> Self
+  public func sort(_ query: Swift.String, direction: DittoSyncKitSwift.DittoSortDirection) -> Self
+  public func offset(_ offset: Swift.UInt32) -> Self
+  @discardableResult
+  public func remove() -> [Swift.String]
+  @discardableResult
+  public func evict() -> [Swift.String]
+  @discardableResult
+  public func update(_ closure: @escaping ([DittoSyncKitSwift.DittoMutableDocument]) -> Swift.Void) -> [Swift.String : [DittoSyncKitSwift.DittoUpdateResult]]
+  @objc deinit
+}
+public enum DittoSyncKitError : Swift.Error {
+  public enum StoreErrorReason {
+    case backendError(message: Swift.String)
+    case documentContentEncodingFailed(error: Swift.Error?)
+    case failedToDecodeDocumentID(error: Swift.Error)
+    case nonStringKeyInDocument(key: DittoSyncKitSwift.CBOR)
+    case invalidDocumentStructure(cbor: DittoSyncKitSwift.CBOR)
+    case failedToDecodeDocumentData(error: Swift.Error?, data: [Swift.UInt8])
+    case failedToGetDocumentData(path: Swift.String)
+    case failedToDecodeDocument(error: Swift.Error)
+    case documentNotFound
+    case attachmentDataRetrievalError(error: Swift.Error)
+    case attachmentFileCopyError(error: Swift.Error)
+  }
+  public enum TransportErrorReason {
+    case diagnosticsUnavailable
+    case failedToDecodeTransportDiagnostics
+    public static func == (a: DittoSyncKitSwift.DittoSyncKitError.TransportErrorReason, b: DittoSyncKitSwift.DittoSyncKitError.TransportErrorReason) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  case storeError(reason: DittoSyncKitSwift.DittoSyncKitError.StoreErrorReason)
+  case transportError(reason: DittoSyncKitSwift.DittoSyncKitError.TransportErrorReason)
+}
+extension DittoSyncKitError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum DittoTransport : Swift.Hashable {
+  case bluetooth
+  case wifi
+  case awdl
+  case tcpServer(address: Swift.String)
+  case wifiFixedPort(listenPort: Swift.UInt16)
+  case webServer(url: Swift.String)
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: DittoSyncKitSwift.DittoTransport, b: DittoSyncKitSwift.DittoTransport) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class DittoWriteTransaction {
+  public func scoped(toCollectionNamed collectionName: Swift.String) -> DittoSyncKitSwift.DittoScopedWriteTransaction
+  public subscript(collectionName: Swift.String) -> DittoSyncKitSwift.DittoScopedWriteTransaction {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoLogger {
+  public static var enabled: Swift.Bool {
+    get
+    set
+  }
+  public static var minimumLogLevel: DittoSyncKitSwift.DittoLogLevel {
+    get
+    set
+  }
+  public static var emojiLogLevelHeadingsEnabled: Swift.Bool {
+    get
+    set
+  }
+  public static func setLogFile(_ logFile: Swift.String?)
+  public static func setLogFileURL(_ logFile: Foundation.URL?)
+  public static func setCustomLogCallback(_ logCb: ((DittoSyncKitSwift.DittoLogLevel, Swift.String) -> ())?)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoSubscription {
+  public var query: Swift.String {
+    get
+  }
+  public var collectionName: Swift.String {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoScopedWriteTransaction {
+  public var collectionName: Swift.String {
+    get
+  }
+  @discardableResult
+  public func insert(_ content: [Swift.String : Any?], withID id: Swift.String? = nil, isDefault: Swift.Bool = false) throws -> Swift.String
+  @discardableResult
+  public func insert<T>(_ content: T, withID id: Swift.String? = nil, isDefault: Swift.Bool = false) throws -> Swift.String where T : Swift.Decodable, T : Swift.Encodable
+  public func findByID(_ id: Swift.String) -> DittoSyncKitSwift.DittoWriteTransactionPendingIDSpecificOperation
+  public func find(query: Swift.String) -> DittoSyncKitSwift.DittoWriteTransactionPendingCursorOperation
+  public func findAll() -> DittoSyncKitSwift.DittoWriteTransactionPendingCursorOperation
+  @objc deinit
+}
+public struct DittoMutableDocumentPath {
+  public subscript(key: Swift.String) -> DittoSyncKitSwift.DittoMutableDocumentPath {
+    get
+  }
+  public subscript(index: Swift.Int) -> DittoSyncKitSwift.DittoMutableDocumentPath {
+    get
+  }
+  public func set(_ value: Any?, isDefault: Swift.Bool = false)
+  public func remove()
+  public func replaceWithCounter(isDefault: Swift.Bool = false)
+  public func increment(amount: Swift.Double)
+  public func push(_ value: Any?)
+  @discardableResult
+  public func pop() -> Any?
+  public func insert(_ value: Any?)
+  public var string: Swift.String? {
+    get
+  }
+  public var stringValue: Swift.String {
+    get
+  }
+  public var bool: Swift.Bool? {
+    get
+  }
+  public var boolValue: Swift.Bool {
+    get
+  }
+  public var int: Swift.Int? {
+    get
+  }
+  public var intValue: Swift.Int {
+    get
+  }
+  public var float: Swift.Float? {
+    get
+  }
+  public var floatValue: Swift.Float {
+    get
+  }
+  public var double: Swift.Double? {
+    get
+  }
+  public var doubleValue: Swift.Double {
+    get
+  }
+  public var array: [Any?]? {
+    get
+  }
+  public var arrayValue: [Any?] {
+    get
+  }
+  public var dictionary: [Swift.String : Any?]? {
+    get
+  }
+  public var dictionaryValue: [Swift.String : Any?] {
+    get
+  }
+  public var attachmentToken: DittoSyncKitSwift.DittoAttachmentToken? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DittoTypedDocument<T> where T : Swift.Decodable {
+  final public let id: Swift.String
+  final public let value: T
+  @objc deinit
+}
+public enum DittoSortDirection {
+  case ascending
+  case descending
+  public static func == (a: DittoSyncKitSwift.DittoSortDirection, b: DittoSyncKitSwift.DittoSortDirection) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@_hasMissingDesignatedInitializers public class DittoPendingCursorOperation {
+  public func limit(_ limit: Swift.Int32) -> Self
+  public func sort(_ query: Swift.String, direction: DittoSyncKitSwift.DittoSortDirection) -> Self
+  public func offset(_ offset: Swift.UInt32) -> Self
+  public func subscribe() -> DittoSyncKitSwift.DittoSubscription
+  @discardableResult
+  public func remove() -> [Swift.String]
+  @discardableResult
+  public func evict() -> [Swift.String]
+  public func exec() -> [DittoSyncKitSwift.DittoDocument]
+  public func observe(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping ([DittoSyncKitSwift.DittoDocument], DittoSyncKitSwift.DittoLiveQueryEvent) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeWithNextSignal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping ([DittoSyncKitSwift.DittoDocument], DittoSyncKitSwift.DittoLiveQueryEvent, () -> Swift.Void) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeLocal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping ([DittoSyncKitSwift.DittoDocument], DittoSyncKitSwift.DittoLiveQueryEvent) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  public func observeLocalWithNextSignal(deliverOn queue: Dispatch.DispatchQueue = .main, eventHandler: @escaping ([DittoSyncKitSwift.DittoDocument], DittoSyncKitSwift.DittoLiveQueryEvent, () -> Swift.Void) -> Swift.Void) -> DittoSyncKitSwift.DittoLiveQuery
+  @discardableResult
+  public func update(_ closure: @escaping ([DittoSyncKitSwift.DittoMutableDocument]) -> Swift.Void) -> [Swift.String : [DittoSyncKitSwift.DittoUpdateResult]]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DittoMutableDocument {
+  public var id: Swift.String {
+    get
+  }
+  public var value: [Swift.String : Any?] {
+    get
+  }
+  public func typed<T>(_ type: T.Type) throws -> DittoSyncKitSwift.DittoTypedDocument<T> where T : Swift.Decodable, T : Swift.Encodable
+  public subscript(key: Swift.String) -> DittoSyncKitSwift.DittoMutableDocumentPath {
+    get
+  }
+  @objc deinit
+}
+public enum DittoIdentity {
+  case development(appName: Swift.String? = nil, siteID: Swift.UInt32? = nil)
+  case sharedKey(appName: Swift.String, sharedKey: Swift.String, siteID: Swift.UInt32? = nil)
+  case production(certificateConfig: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class DittoStore {
+  public subscript(collectionName: Swift.String) -> DittoSyncKitSwift.DittoCollection {
+    get
+  }
+  public func collection(_ name: Swift.String) -> DittoSyncKitSwift.DittoCollection
+  public func collectionNames() -> [Swift.String]
+  public func queriesHash(queries: [DittoSyncKitSwift.DittoLiveQuery]) -> Swift.UInt
+  public func queriesHashMnemonic(queries: [DittoSyncKitSwift.DittoLiveQuery]) -> Swift.String
+  @discardableResult
+  public func write(_ block: @escaping (DittoSyncKitSwift.DittoWriteTransaction) -> Swift.Void) -> [DittoSyncKitSwift.DittoWriteTransactionResult]
+  @objc deinit
+}
+extension DittoSyncKitSwift.DittoLogLevel : Swift.Equatable {}
+extension DittoSyncKitSwift.DittoLogLevel : Swift.Hashable {}
+extension DittoSyncKitSwift.DittoLogLevel : Swift.RawRepresentable {}
+extension DittoSyncKitSwift.DittoTransportCondition : Swift.Equatable {}
+extension DittoSyncKitSwift.DittoTransportCondition : Swift.Hashable {}
+extension DittoSyncKitSwift.DittoTransportCondition : Swift.RawRepresentable {}
+extension DittoSyncKitSwift.DittoConditionSource : Swift.Equatable {}
+extension DittoSyncKitSwift.DittoConditionSource : Swift.Hashable {}
+extension DittoSyncKitSwift.DittoConditionSource : Swift.RawRepresentable {}
+extension DittoSyncKitSwift.DittoSyncKitError.TransportErrorReason : Swift.Equatable {}
+extension DittoSyncKitSwift.DittoSyncKitError.TransportErrorReason : Swift.Hashable {}
+extension DittoSyncKitSwift.DittoSortDirection : Swift.Equatable {}
+extension DittoSyncKitSwift.DittoSortDirection : Swift.Hashable {}
